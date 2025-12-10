@@ -1,8 +1,7 @@
-from logging import log
 from time import time
 from selenium.webdriver.common.by import By
 import time
-from pages.base_page import BasePage
+from page_object_models.base_page import BasePage
 
 class LoginPage(BasePage):
     USERNAME_INPUT = (By.NAME, "username")
