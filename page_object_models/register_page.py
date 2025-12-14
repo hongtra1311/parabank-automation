@@ -64,4 +64,4 @@ class RegisterPage(BasePage):
         self.click_register()
 
     def is_valid_register(self):
-        return self.get_element(self.ACCOUNT_OVERVIEW)
+        return self.get_element(RegisterPageLocator.ACCOUNT_OVERVIEW)
