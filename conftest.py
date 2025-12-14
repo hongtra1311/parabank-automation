@@ -30,3 +30,8 @@ def about_page(driver):
 def contact_page(driver):
     from page_object_models.contact_page import ContactPage
     return ContactPage(driver)
+
+@pytest.fixture
+def home_page(driver):
+    from page_object_models.home_page import HomePage
+    return HomePage(driver)
