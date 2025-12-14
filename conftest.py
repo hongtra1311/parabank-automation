@@ -20,3 +20,13 @@ def login_page(driver):
 def register_page(driver):
     from page_object_models.register_page import RegisterPage
     return RegisterPage(driver)
+
+@pytest.fixture
+def about_page(driver):
+    from page_object_models.about_page import AboutPage
+    return AboutPage(driver)
+
+@pytest.fixture
+def contact_page(driver):
+    from page_object_models.contact_page import ContactPage
+    return ContactPage(driver)

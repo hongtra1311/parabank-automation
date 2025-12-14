@@ -1,24 +1,30 @@
-from time import time
 from selenium.webdriver.common.by import By
-import time
 from page_object_models.base_page import BasePage
+from page_locators.login_page_locator import LoginPageLocator
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class LoginPage(BasePage):
-    USERNAME_INPUT = (By.NAME, "username")
-    PASSWORD_INPUT = (By.NAME, "password")
-    LOGIN_BUTTON = (By.XPATH, "//input[@value='Log In']")
-    ACCOUNT_OVERVIEW = (By.XPATH, "//p[@class='error' and text()='The username and password could not be verified.']")
+
+    def __init__(self, driver):
+        super().__init__(driver)
+
+    def enter_username(self, username):
+        self.get_element(LoginPageLocator.USERNAME_INPUT).send_keys(username)
+
+    def enter_password(self, password):
+        self.get_element(LoginPageLocator.PASSWORD_INPUT).send_keys(password)
+
+    def click_login(self):
+        self.get_element(LoginPageLocator.LOGIN_BUTTON).click()
 
     def login(self, username, password):
-        print(f"Logging in with username")
-        self.type(self.USERNAME_INPUT, username)
-        self.type(self.PASSWORD_INPUT, password)
-        time.sleep(2)  
-        self.click(self.LOGIN_BUTTON)
+        self.enter_username(username)
+        self.enter_password(password)
+        self.click_login()
 
-    def is_login_error(self):
+    def get_error_message(self):
         try:
-            self.get_element(self.ACCOUNT_OVERVIEW)
-            return True
-        except:
-            return False
+            el = self.get_element(LoginPageLocator.ACCOUNT_OVERVIEW, timeout=1)
+            return el.text
+        except (TimeoutException, NoSuchElementException):
+            return None

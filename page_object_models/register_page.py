@@ -2,46 +2,71 @@ from time import time
 from selenium.webdriver.common.by import By
 import time
 from page_object_models.base_page import BasePage
-
+from page_locators.register_page_locator import RegisterPageLocator
 class RegisterPage(BasePage):
-    REGISTER_LINK = (By.LINK_TEXT, "Register")
-    TITLE_REGISTER = (By.XPATH, "//h1[text()='Signing up is easy!']")
-    REGISTER_NAME = (By.ID, "customer.firstName")
-    REGISTER_LAST_NAME = (By.ID, "customer.lastName")
-    REGISTER_ADDRESS = (By.ID, "customer.address.street")
-    REGISTER_CITY = (By.ID, "customer.address.city")
-    REGISTER_STATE = (By.ID, "customer.address.state")
-    REGISTER_ZIP_CODE = (By.ID, "customer.address.zipCode")
-    REGISTER_PHONE = (By.ID, "customer.phoneNumber")
-    REGISTER_SSN = (By.ID, "customer.ssn")
-    REGISTER_USERNAME = (By.ID, "customer.username")
-    REGISTER_PASSWORD = (By.ID, "customer.password")
-    REGISTER_CONFIRM_PASSWORD = (By.ID, "repeatedPassword")
-    REGISTER_BUTTON = (By.XPATH, "//input[@value='Register']")
-    ACCOUNT_OVERVIEW = (By.XPATH, "//p[text()='Your account was created successfully. You are now logged in.']")
+
+    def __init__(self, driver):
+        super().__init__(driver)
+
+    def click_register_link(self):
+        self.get_element(RegisterPageLocator.REGISTER_LINK).click()
+
+    def enter_name(self, name):
+        self.get_element(RegisterPageLocator.REGISTER_NAME).send_keys(name)
+
+    def enter_last_name(self, last_name):
+        self.get_element(RegisterPageLocator.REGISTER_LAST_NAME).send_keys(last_name)
+
+    def enter_address(self, address):
+        self.get_element(RegisterPageLocator.REGISTER_ADDRESS).send_keys(address)
+
+    def enter_city(self, city):
+        self.get_element(RegisterPageLocator.REGISTER_CITY).send_keys(city)
+
+    def enter_state(self, state):
+        self.get_element(RegisterPageLocator.REGISTER_STATE).send_keys(state)
+
+    def enter_zip_code(self, zip_code):
+        self.get_element(RegisterPageLocator.REGISTER_ZIP_CODE).send_keys(zip_code)
+
+    def enter_phone(self, phone):
+        self.get_element(RegisterPageLocator.REGISTER_PHONE).send_keys(phone)
+
+    def enter_ssn(self, ssn):
+        self.get_element(RegisterPageLocator.REGISTER_SSN).send_keys(ssn)
+
+    def enter_username(self, username):
+        self.get_element(RegisterPageLocator.REGISTER_USERNAME).send_keys(username)
+
+    def enter_password(self, password):
+        self.get_element(RegisterPageLocator.REGISTER_PASSWORD).send_keys(password)
+
+    def enter_confirm_password(self, confirm_password):
+        self.get_element(RegisterPageLocator.REGISTER_CONFIRM_PASSWORD).send_keys(confirm_password)
+
+    def click_register(self):
+        self.get_element(RegisterPageLocator.REGISTER_BUTTON).click()
 
     def register(self):
-        print(f"Registering a new user")
-        self.click(self.REGISTER_LINK)
-        self.get_element(self.TITLE_REGISTER)
-        self.type(self.REGISTER_NAME, "John")
-        self.type(self.REGISTER_LAST_NAME, "Doe")
-        self.type(self.REGISTER_ADDRESS, "123 Main St")
-        self.type(self.REGISTER_CITY, "Anytown")    
-        self.type(self.REGISTER_STATE, "CA")
-        self.type(self.REGISTER_ZIP_CODE, "12345")
-        self.type(self.REGISTER_PHONE, "555-1234")
-        self.type(self.REGISTER_SSN, "123-45-6789")
-        self.type(self.REGISTER_USERNAME, "johndoe"+ str(int(time.time())))
-        self.type(self.REGISTER_PASSWORD, "password123")
-        self.type(self.REGISTER_CONFIRM_PASSWORD, "password123")
-        time.sleep(2)
-        self.click(self.REGISTER_BUTTON)
-        time.sleep(2)
+        self.click_register_link()
+        self.get_element(RegisterPageLocator.TITLE_REGISTER)
+        self.enter_name("John")
+        self.enter_last_name("Doe")
+        self.enter_address("123 Main St")
+        self.enter_city("Anytown")
+        self.enter_state("Anystate")
+        self.enter_zip_code("12345")
+        self.enter_phone("555-1234")
+        self.enter_ssn("123-45-6789")
+        self.enter_username("johndoe" + str(int(time.time())))
+        self.enter_password("password123")
+        self.enter_confirm_password("password123")
+        self.click_register()
 
     def is_valid_register(self):
+        from selenium.common.exceptions import TimeoutException
         try:
-            self.get_element(self.ACCOUNT_OVERVIEW)
+            self.get_element(RegisterPageLocator.ACCOUNT_OVERVIEW, timeout=2)
             return True
-        except:
+        except TimeoutException:
             return False
