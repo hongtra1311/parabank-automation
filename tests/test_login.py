@@ -6,6 +6,7 @@ from page_object_models.login_page import LoginPage
 def test_invalid_login(login_page, driver):
     driver.get("https://parabank.parasoft.com/parabank/index.htm")
     login_page.login("hongtra1311", "ztvz!96jFL3P@")
+    login_page.screenshot("invalid_login_attempt")
     if login_page.get_error_message():
         assert True
     else:

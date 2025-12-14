@@ -6,3 +6,4 @@ from page_object_models.home_page import HomePage
 def test_display_home_page(home_page, driver):
     driver.get("https://parabank.parasoft.com/parabank/index.htm")
     assert home_page.display_home_page()
+    home_page.screenshot("home_page_display")

@@ -1,21 +1,13 @@
 import pytest
 from selenium import webdriver
-import time, random
 from webdriver_manager.chrome import ChromeDriverManager
 from page_object_models.login_page import LoginPage
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-def human_sleep(a=2, b=5):
-    time.sleep(random.uniform(a, b))
-
 @pytest.fixture
 def driver():
     options = Options()
-
-    # ❌ KHÔNG headless khi test site thật
-    # options.add_argument("--headless")
-
     options.add_argument(
         "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
