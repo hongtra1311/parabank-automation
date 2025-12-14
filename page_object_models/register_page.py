@@ -6,7 +6,7 @@ from page_locators.register_page_locator import RegisterPageLocator
 class RegisterPage(BasePage):
 
     def __init__(self, driver):
-        super().__init__(driver)
+        self.driver = driver
 
     def click_register_link(self):
         self.get_element(RegisterPageLocator.REGISTER_LINK).click()
@@ -64,9 +64,4 @@ class RegisterPage(BasePage):
         self.click_register()
 
     def is_valid_register(self):
-        from selenium.common.exceptions import TimeoutException
-        try:
-            self.get_element(RegisterPageLocator.ACCOUNT_OVERVIEW, timeout=2)
-            return True
-        except TimeoutException:
-            return False
+        return self.get_element(self.ACCOUNT_OVERVIEW)

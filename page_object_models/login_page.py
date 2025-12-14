@@ -1,12 +1,11 @@
 from selenium.webdriver.common.by import By
 from page_object_models.base_page import BasePage
 from page_locators.login_page_locator import LoginPageLocator
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class LoginPage(BasePage):
 
     def __init__(self, driver):
-        super().__init__(driver)
+        self.driver = driver
 
     def enter_username(self, username):
         self.get_element(LoginPageLocator.USERNAME_INPUT).send_keys(username)
@@ -23,8 +22,4 @@ class LoginPage(BasePage):
         self.click_login()
 
     def get_error_message(self):
-        try:
-            el = self.get_element(LoginPageLocator.ACCOUNT_OVERVIEW, timeout=1)
-            return el.text
-        except (TimeoutException, NoSuchElementException):
-            return None
+        return self.get_element(LoginPageLocator.ACCOUNT_OVERVIEW)

@@ -1,18 +1,11 @@
 from selenium.webdriver.common.by import By
 from page_object_models.base_page import BasePage
 from page_locators.about_page_locator import AboutPageLocator
-from page_locators.login_page_locator import LoginPageLocator
 
 class AboutPage(BasePage):
 
     def __init__(self, driver):
-        super().__init__(driver)
-
-    def login(self, username, password):
-        """Login using the header/login form available on the site."""
-        self.get_element(LoginPageLocator.USERNAME_INPUT).send_keys(username)
-        self.get_element(LoginPageLocator.PASSWORD_INPUT).send_keys(password)
-        self.get_element(LoginPageLocator.LOGIN_BUTTON).click()
+        self.driver = driver
 
     def get_title(self):
         return self.get_element(AboutPageLocator.TITLE_ABOUT)
