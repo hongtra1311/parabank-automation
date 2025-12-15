@@ -5,7 +5,7 @@ from page_object_models.login_page import LoginPage
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def driver():
     options = Options()
     options.add_argument(
