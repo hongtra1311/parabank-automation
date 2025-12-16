@@ -48,4 +48,4 @@ Tools:
 
 ## Report
 
-![Test Jenkin Report](https://github.com/hongtra1311/parabank-automation/screenshots/jenkin_report.png)
+![Test Jenkin Report](https://github.com/hongtra1311/parabank-automation/blob/main/screenshots/jenkin_report.png)
