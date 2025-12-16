@@ -24,3 +24,28 @@ pip install -r requirements.txt
 ```
 
 Run the whole test suite normally with `pytest` or run just the tests you want; the order markers ensure the specified order regardless of collection order.
+
+## CI/CD Pipeline (Jenkins)
+
+This project uses Jenkins for Continuous Integration (CI).
+
+Pipeline steps:
+
+1. Triggered automatically on GitHub push
+2. Clone repository
+3. Create Python virtual environment
+4. Install dependencies
+5. Run Selenium tests in headless mode
+6. Generate pytest HTML report
+7. Archive test reports in Jenkins
+
+Tools:
+
+- Jenkins
+- Python + Pytest
+- Selenium WebDriver
+- pytest-html
+
+## Report
+
+![Test Jenkin Report](https://github.com/hongtra1311/parabank-automation/screenshots/jenkin_reporr.png)
