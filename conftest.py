@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.options import Options
 @pytest.fixture(scope="session")
 def driver():
     options = Options()
+    options.add_argument("--headless")
     options.add_argument(
         "--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
